@@ -6,13 +6,13 @@ const superagent = require('superagent');
 
 const cors = require('cors');
 
-app.use(cors());
-
 const app = express();
+
+app.use(cors());
 
 require('dotenv').config();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.get('/location', (request, respone) => {
 
@@ -21,6 +21,7 @@ app.get('/location', (request, respone) => {
   return superagent.get(url)
 
     .then(result => {
+      console.log(url);
       const locationResult = {
         search_query: request.query.data,
         formatted_query: result.body.results[0].formatted_address,
